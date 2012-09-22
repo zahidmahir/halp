@@ -1,4 +1,3 @@
-uses-permission android:name="android.permission.INTERNET"
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="halp.com"
     android:versionCode="1"
