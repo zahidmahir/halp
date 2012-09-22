@@ -3,7 +3,6 @@ package halp.com;
 import java.io.IOException;
 import java.util.List;
 
-import com.example.android.BluetoothChat.BluetoothChatService;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -28,6 +27,10 @@ public class MainActivity extends Activity {
 	NetworkInfo wifiInfo, mobileInfo;
 	WifiManager wifiManager;*/
 	TextView fuckLogCat;
+	
+	// Debugging
+    private static final String TAG = "BluetoothChatService";
+    private static final boolean D = true;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,13 +123,10 @@ public class MainActivity extends Activity {
 
             // Create a new listening server socket
             try {
-                if (secure) {
-                    tmp = mAdapter.listenUsingRfcommWithServiceRecord(NAME_SECURE,
-                        MY_UUID_SECURE);
-                } else {
-                    tmp = mAdapter.listenUsingInsecureRfcommWithServiceRecord(
-                            NAME_INSECURE, MY_UUID_INSECURE);
-                }
+         
+                tmp = mAdapter.listenUsingInsecureRfcommWithServiceRecord(
+                        NAME_INSECURE, MY_UUID_INSECURE);
+            
             } catch (IOException e) {
                 Log.e(TAG, "Socket Type: " + mSocketType + "listen() failed", e);
             }
@@ -174,12 +174,12 @@ public class MainActivity extends Activity {
                     }
                 }
             }
-            Log.i(TAG, "END mAcceptThread, socket Type: " + mSocketType);
+            if (D) Log.i(TAG, "END mAcceptThread, socket Type: " + mSocketType);
 
         }
 
         public void cancel() {
-            Log.d(TAG, "Socket Type" + mSocketType + "cancel " + this);
+            if (D) Log.d(TAG, "Socket Type" + mSocketType + "cancel " + this);
             try {
                 mmServerSocket.close();
             } catch (IOException e) {
