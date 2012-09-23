@@ -8,15 +8,18 @@ public class Conversation {
 	private ArrayList<Message> messages;
 
 	public Conversation(){
+		group = new String();
 		messages = new ArrayList<Message>();
 	}
 	
 	public Conversation(String g){
+		group = new String();
 		group = g;
 		messages = new ArrayList<Message>();
 	}
 	
 	public Conversation(String g, ArrayList<Message> m){
+		group = new String();
 		group = g;
 		messages = new ArrayList<Message>();
 		messages = m;

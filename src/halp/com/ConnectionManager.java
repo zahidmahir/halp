@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 import android.annotation.TargetApi;
@@ -97,10 +98,12 @@ public class ConnectionManager {
         private final BluetoothSocket mmSocket;
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
+    	private Conversation conversation = new Conversation();
 
         public ConnectedThread(BluetoothSocket socket) {
             Log.d(TAG, "create ConnectedThread: ");
             mmSocket = socket;
+            conversation.setGroup(mmSocket.getRemoteDevice().getAddress());
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
 
@@ -126,16 +129,28 @@ public class ConnectionManager {
                 try {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);
-
+                    //addCommunication();
+                    halp.com.Message m = new halp.com.Message();
+                    m.setSender(mmSocket.getRemoteDevice().getAddress());
+                    m.setReceiver("You");
+                    m.setTime(new Date().toString());
+	                // construct a string from the valid bytes in the buffer
+	                String readMessage = new String(buffer, 0, bytes);
+	                m.setMessage(readMessage);
+	                conversation.addMessage(m);
                     // Send the obtained bytes to the UI Activity
-                    mHandler.obtainMessage(BluetoothChat.MESSAGE_READ, bytes, -1, buffer)
-                            .sendToTarget();
+                    //mHandler.obtainMessage(BluetoothChat.MESSAGE_READ, bytes, -1, buffer)
+                            //.sendToTarget();
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
                     connectionLost();
                     break;
                 }
             }
+        }
+        
+        public Conversation getConversation(){
+        	return conversation;
         }
 
         
