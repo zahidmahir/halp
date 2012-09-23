@@ -3,12 +3,25 @@ package halp.com;
 import java.util.ArrayList;
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class MessageList extends ListActivity{
+public class MessageList extends ListActivity implements OnClickListener {
 	
-	ArrayList<Message> messages = new ArrayList<Message>();
-	Conversation selectedConversation;
+	private ArrayList<Message> messages = new ArrayList<Message>();
+	private Conversation selectedConversation;
+	private EditText inputText;
+    private static final String TAG = "Halp";
+    private static final boolean D = true;
+    // String buffer for outgoing messages
+    private StringBuffer mOutStringBuffer = ConnectionManager.mOutStringBuffer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,5 +35,41 @@ public class MessageList extends ListActivity{
         }
         ListView listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(new MessageListItemAdapter(this, R.layout.messagelistitem, messages));
+        inputText = (EditText) findViewById(R.id.etInputText);
+//        inputText.
     }
+    
+    // The action listener for the EditText widget, to listen for the return key
+    private TextView.OnEditorActionListener mWriteListener =
+        new TextView.OnEditorActionListener() {
+        public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+            // If the action is a key-up event on the return key, send the message
+            if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_UP) {
+                String message = view.getText().toString();
+//                sendMessage(message);
+            }
+            if(D) Log.i(TAG, "END onEditorAction");
+            return true;
+        }
+    };
+    
+    private void sendMessage(String message) {
+       
+        // Check that there's actually something to send
+        if (message.length() > 0) {
+            // Get the message bytes and tell the BluetoothChatService to write
+            byte[] send = message.getBytes();
+            this.write(send);
+
+            // Reset out string buffer to zero and clear the edit text field
+            mOutStringBuffer.setLength(0);
+            inputText.setText(mOutStringBuffer);
+        }
+    }
+
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
