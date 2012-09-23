@@ -29,9 +29,11 @@ public class MessageList extends ListActivity implements OnClickListener {
         setContentView(R.layout.messagelist);
         for(int i = 0; i < 10; i++){
         	Message m1 = new Message("Keith", "Daniel", "I will rub this the right way", "9:30pm");
-        	Message m2 = new Message("Daniel", "Keith", "on your phone", "9:30pm");
+        	Message m2 = new Message("Daniel", "Keith", "on your phone. LINE LINE LINE NEW LINE LINE LINE.", "9:30pm");
+        	Message m3 = new Message("Keith", "Daniel", "I will rub this the right way", "9:30pm");
         	messages.add(m1);
         	messages.add(m2);
+        	messages.add(m3);
         }
         ListView listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(new MessageListItemAdapter(this, R.layout.messagelistitem, messages));

@@ -30,6 +30,7 @@ public class MessageListItemAdapter extends ArrayAdapter<Message> {
 		if (message != null) {
 			TextView time = (TextView) v.findViewById(R.id.tvMessageTime);
 			TextView body = (TextView) v.findViewById(R.id.tvMessageBody);
+			LinearLayout colorBox = (LinearLayout) v.findViewById(R.id.llColorBox);
 			LinearLayout layout = (LinearLayout) v.findViewById(R.id.llMessageListItem);
 			
 			if (message.getTime() != null) {
@@ -41,11 +42,11 @@ public class MessageListItemAdapter extends ArrayAdapter<Message> {
 			}
 			if (message.getSender() != null){
 				if(message.getSender().equals("Daniel")){
-					body.setBackgroundColor(Color.rgb(176, 176, 176));
+					colorBox.setBackgroundColor(Color.rgb(176, 176, 176));
 					layout.setGravity(Gravity.RIGHT);
 				}
 				else{
-					body.setBackgroundColor(Color.rgb(0, 176, 255));
+					colorBox.setBackgroundColor(Color.rgb(0, 176, 255));
 				}
 			}
 		}
