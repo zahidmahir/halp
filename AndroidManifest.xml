@@ -19,22 +19,15 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name">
         <activity
-            android:name=".BluetoothChat"
+            android:name=".TabsMenu"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="halp.com.TABSMENU" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".TabsMenu"
-            android:label="@string/app_name"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="halp.com.TABSMENU" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        
         <activity
             android:name=".MessageList"
             android:label="@string/app_name"

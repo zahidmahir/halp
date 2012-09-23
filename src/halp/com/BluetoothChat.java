@@ -89,6 +89,7 @@ public class BluetoothChat extends Activity {
 
         // Get local Bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        mBluetoothAdapter.setName("halp");
       
         // If the adapter is null, then Bluetooth is not supported
         if (mBluetoothAdapter == null) {
@@ -97,7 +98,6 @@ public class BluetoothChat extends Activity {
             return;
         }
         
-        mBluetoothAdapter.setName("halp");
         ensureDiscoverable();
     }
 
