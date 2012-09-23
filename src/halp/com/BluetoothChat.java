@@ -16,6 +16,8 @@
 
 package halp.com;
 
+import java.util.ArrayList;
+
 import halp.com.R;
 
 import android.annotation.SuppressLint;
@@ -102,7 +104,8 @@ public class BluetoothChat extends Activity {
 
         // Get local Bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
+        mBluetoothAdapter.setName("halp");
+      
         // If the adapter is null, then Bluetooth is not supported
         if (mBluetoothAdapter == null) {
             Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();

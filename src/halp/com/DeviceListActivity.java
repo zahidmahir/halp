@@ -20,6 +20,7 @@ import java.util.Set;
 
 import halp.com.R;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -45,6 +46,7 @@ import android.widget.AdapterView.OnItemClickListener;
  * by the user, the MAC address of the device is sent back to the parent
  * Activity in the result Intent.
  */
+@TargetApi(5)
 public class DeviceListActivity extends Activity {
     // Debugging
     private static final String TAG = "DeviceListActivity";
@@ -111,7 +113,9 @@ public class DeviceListActivity extends Activity {
         if (pairedDevices.size() > 0) {
             findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);
             for (BluetoothDevice device : pairedDevices) {
-                mPairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+            	if (device.getName().equals("halp")) {
+            		mPairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+            	}
             }
         } else {
             String noDevices = getResources().getText(R.string.none_paired).toString();
@@ -186,7 +190,7 @@ public class DeviceListActivity extends Activity {
                 // Get the BluetoothDevice object from the Intent
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 // If it's already paired, skip it, because it's been listed already
-                if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
+                if (device.getName().equals("halp") && device.getBondState() != BluetoothDevice.BOND_BONDED) {
                     mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
                 }
             // When discovery is finished, change the Activity title
