@@ -2,34 +2,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/llConversationBanner"
+        android:id="@+id/llMessageListBanner"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="vertical" >
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" >
+
+        <Button
+            android:id="@+id/bMessageListBack"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+        	android:layout_gravity="center_vertical"
+        	android:layout_weight="15"
+        	android:text="Back" />
 
         <TextView
-            android:id="@+id/tvConversationBannerTitle"
+            android:id="@+id/tvMessageListBannerTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Keith"
-            android:textColor="#6DCAEC" />
+            android:layout_gravity="center_vertical"
+        	android:layout_weight="70"
+        	android:gravity="center"
+            android:text="Contact"
+            android:textColor="#6DCAEC"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+        
+        <Button
+            android:id="@+id/bMessageListDelete"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+        	android:layout_gravity="center_vertical"
+        	android:layout_weight="15"
+        	android:text="Delete" />
     </LinearLayout>
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="330dp">
+        android:layout_height="0dp"
+        android:layout_weight="65" >
     </ListView>
-    
+
     <EditText
-		android:id="@+id/etInputText"
-		android:layout_width="match_parent"
-		android:layout_height="80dp"
-		android:ems="10"
-		android:inputType="textMultiLine" />
+        android:id="@+id/etInputText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:lines="2" />
 
 </LinearLayout>
