@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TabHost
+        android:id="@+id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+        	android:orientation="vertical"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:padding="5dp">
+
+	        <FrameLayout
+	            android:id="@android:id/tabcontent"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:padding="5dp"
+	            android:layout_weight="1" >
+            
+                <LinearLayout
+                    android:id="@+id/tabMessages"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+                    
+                    <LinearLayout 
+                        android:id="@+id/llMessageBanner"
+                    	android:layout_width="match_parent"
+                    	android:layout_height="70dp"
+                    	android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/tvMessageBannerTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Messages"
+                            android:textColor="#6DCAEC" />
+                        
+                    </LinearLayout>
+                    
+                    <ListView
+				        android:id="@android:id/list"
+				        android:layout_width="fill_parent"
+				        android:layout_height="fill_parent" >
+				    </ListView>
+                    
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabNetwork"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </FrameLayout>
+
+        	<TabWidget
+            	android:id="@android:id/tabs"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="0"
+            	android:layout_marginBottom="-4dp"/>
+
+        </LinearLayout>
+    </TabHost>
+</LinearLayout>

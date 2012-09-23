@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llMessageListItem"
+	android:layout_height="wrap_content"
+	android:layout_width="fill_parent"
+	android:padding="5dp"
+	android:orientation="vertical"
+	>
+
+    <TextView
+        android:id="@+id/tvMessageTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="9:30pm"
+        android:textColor="#6DCAEC" />
+    
+    <TextView
+        android:id="@+id/tvMessageBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="9:30pm"
+        android:textColor="#6DCAEC" />
+
+</LinearLayout>
