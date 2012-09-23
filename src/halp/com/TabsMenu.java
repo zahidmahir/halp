@@ -2,6 +2,7 @@ package halp.com;
 
 
 import halp.com.ConnectionManager.AcceptThread;
+import halp.com.ConnectionManager.ConnectedThread;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,7 +45,7 @@ import android.widget.TabHost.TabSpec;
 public class TabsMenu extends ListActivity implements OnClickListener {
 	
 	ArrayList<Conversation> conversations = new ArrayList<Conversation>();
-	Conversation selectedConversation;
+	static Conversation selectedConversation;
 	
 	
 	// Intent request codes
@@ -72,9 +73,8 @@ public class TabsMenu extends ListActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabsmenu);
         TabHost th = (TabHost) findViewById(R.id.tabhost);
-        for(int i = 0; i < 10; i++){
-        	Conversation c = new Conversation("Keith");
-        	conversations.add(c);
+        for(ConnectedThread ct : ConnectionManager.mConnectedThreads){
+        	conversations.add(ct.getConversation());
         }
         ListView listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(new ConversationListItemAdapter(this, R.layout.conversationlistitem, conversations));

@@ -47,6 +47,7 @@ public class MessageListItemAdapter extends ArrayAdapter<Message> {
 				}
 				else{
 					colorBox.setBackgroundColor(Color.rgb(0, 176, 255));
+					layout.setGravity(Gravity.LEFT);
 				}
 			}
 		}
