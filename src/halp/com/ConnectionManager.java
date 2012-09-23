@@ -146,7 +146,6 @@ public class ConnectionManager {
          */
         public void write(byte[] buffer) {
             try {
-            	Log.d(TAG, "actually writing out");
                 mmOutStream.write(buffer);
 
                 // Share the sent message back to the UI Activity
