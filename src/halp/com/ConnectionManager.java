@@ -52,10 +52,6 @@ public class ConnectionManager {
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST = "toast";
     
-    //Threads
-    private AcceptThread mInsecureAcceptThread;
-    private static ConnectThread mConnectThread;
-    private static int mState;
     
     //TODO not entirely necessary, currently hold some known connections
     static ArrayAdapter<String> mPairedDevicesArrayAdapter;
@@ -71,6 +67,12 @@ public class ConnectionManager {
     // Member object for the chat services
     //private BluetoothChatService mChatService = null;
 
+	//Threads
+    static AcceptThread mInsecureAcceptThread;
+    private static ConnectThread mConnectThread;
+    private static int mState;
+    
+	
 	/**
      * Write to the ConnectedThread in an unsynchronized manner
      * @param out The bytes to write
@@ -80,16 +82,17 @@ public class ConnectionManager {
         // Create temporary object
         ConnectedThread r;
         // Synchronize a copy of the ConnectedThread
-        //synchronized (this) {
-        	for(int i=0;i<mConnectedThreads.size(); i++) {
-    			r = mConnectedThreads.get(i);
-        		if (r != null){
-        			// Perform the write unsynchronized
-        			r.write(out);
-        		}
+    	Log.d(TAG, "thread size: " + mConnectedThreads.size());
 
+        for(int i=0;i<mConnectedThreads.size(); i++) {
+    		r = mConnectedThreads.get(i);
+        	if (r != null){
+        		// Perform the write unsynchronized
+        		Log.d(TAG, "Writing out " + out + " to ");
+        		r.write(out);
         	}
-        //}
+
+        }
     }
     
     /**
@@ -141,12 +144,15 @@ public class ConnectionManager {
             }
         }
 
+        
+        
         /**
          * Write to the connected OutStream.
          * @param buffer  The bytes to write
          */
         public void write(byte[] buffer) {
             try {
+            	Log.d(TAG, "actually writing out");
                 mmOutStream.write(buffer);
 
                 // Share the sent message back to the UI Activity
@@ -171,7 +177,6 @@ public class ConnectionManager {
      * @param message  A string of text to send.
      */
     static void sendMessage(String message) {
-    	Log.d(TAG, "sending: " + message);
         // Check that there's actually something to send
         if (message.length() > 0) {
             // Get the message bytes and tell the BluetoothChatService to write
@@ -217,6 +222,7 @@ public class ConnectionManager {
                 byte[] readBuf = (byte[]) msg.obj;
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, msg.arg1);
+                Log.d(TAG, readMessage);
                 mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
                 break;
             case MESSAGE_DEVICE_NAME:
@@ -251,14 +257,13 @@ public class ConnectionManager {
      * like a server-side client. It runs until a connection is accepted
      * (or until cancelled).
      */
-    private class AcceptThread extends Thread {
+    class AcceptThread extends Thread {
 		// The local server socket
         private final BluetoothServerSocket mmServerSocket;
         private String mSocketType;
 
-        public AcceptThread(boolean secure) {
+        public AcceptThread() {
             BluetoothServerSocket tmp = null;
-            mSocketType = secure ? "Secure":"Insecure";
 
             // Create a new listening server socket
             try {
@@ -279,11 +284,13 @@ public class ConnectionManager {
             BluetoothSocket socket = null;
 
             // Listen to the server socket if we're not connected
-            while (mState != STATE_CONNECTED) {
+            while (true) {
                 try {
                     // This is a blocking call and will only return on a
                     // successful connection or an exception
+                	Log.d(TAG, "I should be ran");
                     socket = mmServerSocket.accept();
+                    Log.d(TAG, "I should probably be ran");
                 } catch (IOException e) {
                     Log.e(TAG, "Socket Type: " + mSocketType + "accept() failed", e);
                     break;
@@ -291,24 +298,9 @@ public class ConnectionManager {
 
                 // If a connection was accepted
                 if (socket != null) {
-                    //synchronized (BluetoothChatService.this) { //TODO eh
-                        switch (mState) {
-                        case STATE_LISTEN:
-                        case STATE_CONNECTING:
-                            // Situation normal. Start the connected thread.
-                            connected(socket, socket.getRemoteDevice());
-                            break;
-                        case STATE_NONE:
-                        case STATE_CONNECTED:
-                            // Either not ready or already connected. Terminate new socket.
-                            try {
-                                socket.close();
-                            } catch (IOException e) {
-                                Log.e(TAG, "Could not close unwanted socket", e);
-                            }
-                            break;
-                        }
-                    //}
+                    // Situation normal. Start the connected thread.
+                    connected(socket, socket.getRemoteDevice());
+                      
                 }
             }
             if (D) Log.i(TAG, "END mAcceptThread, socket Type: " + mSocketType);
@@ -351,7 +343,7 @@ public class ConnectionManager {
         }
 
         public void run() {
-            Log.i(TAG, "BEGIN mConnectThread SocketType:");
+            Log.i(TAG, "BEGIN mConnectThread");
             setName("ConnectThread");
 
             // Always cancel discovery because it will slow down a connection
@@ -361,7 +353,9 @@ public class ConnectionManager {
             try {
                 // This is a blocking call and will only return on a
                 // successful connection or an exception
+            	Log.d(TAG, "before");
                 mmSocket.connect();
+                Log.d(TAG, "after");
             } catch (IOException e) {
                 // Close the socket
                 try {
@@ -430,8 +424,8 @@ public class ConnectionManager {
 
         // Start the thread to manage the connection and perform transmissions
         ConnectionManager.ConnectedThread tmp = (new ConnectionManager()).new ConnectedThread(socket);
-        ConnectionManager.mConnectedThreads.add(tmp);
         tmp.start();
+        ConnectionManager.mConnectedThreads.add(tmp);
 
         // Send the name of the connected device back to the UI Activity
         Message msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_DEVICE_NAME);

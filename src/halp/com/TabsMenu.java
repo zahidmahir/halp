@@ -1,6 +1,8 @@
 package halp.com;
 
 
+import halp.com.ConnectionManager.AcceptThread;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -133,6 +135,9 @@ public class TabsMenu extends ListActivity implements OnClickListener {
             String noDevices = getResources().getText(R.string.none_paired).toString();
             ConnectionManager.mPairedDevicesArrayAdapter.add(noDevices);
         }
+        
+        ConnectionManager.mInsecureAcceptThread = (new ConnectionManager()).new AcceptThread();
+        ConnectionManager.mInsecureAcceptThread.start();
         
         //TODO move this into a thread that runs every few minutes
         doDiscovery();
