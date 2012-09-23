@@ -217,9 +217,9 @@ public class TabsMenu extends ListActivity implements OnClickListener {
         Log.d(TAG, "setupChat()");
 
         // Initialize the array adapter for the conversation thread
-        ConnectionManager.mConversationArrayAdapter = new ArrayAdapter<String>(this, R.layout.message);
-        mConversationView = (ListView) findViewById(R.id.in);
-        mConversationView.setAdapter(ConnectionManager.mConversationArrayAdapter);
+        //ConnectionManager.mConversationArrayAdapter = new ArrayAdapter<String>(this, R.layout.message);
+        //mConversationView = (ListView) findViewById(R.id.in);
+        //mConversationView.setAdapter(ConnectionManager.mConversationArrayAdapter);
 
         // Initialize the compose field with a listener for the return key
         mOutEditText = (EditText) findViewById(R.id.edit_text_out);
