@@ -22,7 +22,14 @@
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="330dp">
     </ListView>
+    
+    <EditText
+		android:id="@+id/etInputText"
+		android:layout_width="match_parent"
+		android:layout_height="80dp"
+		android:ems="10"
+		android:inputType="textMultiLine" />
 
 </LinearLayout>

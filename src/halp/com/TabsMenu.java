@@ -45,7 +45,7 @@ public class TabsMenu extends ListActivity implements OnClickListener {
 	Conversation selectedConversation;
 	
     private static final UUID MY_UUID = UUID.randomUUID();
-    private static final String USERNAME = "jeff"; //TODO fix this alter
+    private static final String USERNAME = "jeff"; //TODO fix this later
 
 	
 	// Key names received from the BluetoothChatService Handler
