@@ -41,18 +41,11 @@ public class MessageListItemAdapter extends ArrayAdapter<Message> {
 			}
 			if (message.getSender() != null){
 				if(message.getSender().equals("Daniel")){
-					layout.setBackgroundColor(Color.YELLOW);
+					body.setBackgroundColor(Color.rgb(176, 176, 176));
 					layout.setGravity(Gravity.RIGHT);
-					/*LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-			                LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
-			            params.weight = 1.0f;
-			            params.gravity = Gravity.RIGHT;
-
-			            time.setLayoutParams(params);
-			            body.setLayoutParams(params);*/
 				}
 				else{
-					layout.setBackgroundColor(Color.CYAN);
+					body.setBackgroundColor(Color.rgb(0, 176, 255));
 				}
 			}
 		}

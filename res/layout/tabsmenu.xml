@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     android:orientation="vertical" >
 
     <TabHost
@@ -10,46 +11,67 @@
         android:layout_height="match_parent" >
 
         <LinearLayout
-        	android:orientation="vertical"
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	        android:padding="5dp">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:padding="5dp" >
 
-	        <FrameLayout
-	            android:id="@android:id/tabcontent"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:padding="5dp"
-	            android:layout_weight="1" >
-            
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp" >
+
                 <LinearLayout
                     android:id="@+id/tabMessages"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical" >
-                    
-                    <LinearLayout 
-                        android:id="@+id/llMessageBanner"
-                    	android:layout_width="match_parent"
-                    	android:layout_height="70dp"
-                    	android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:id="@+id/llConversationListBanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="15"
+                        android:gravity="center" >
+
+                        <ImageView
+                            android:id="@+id/ivLogo"
+                            android:layout_width="35dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="25"
+                            android:contentDescription="Logo"
+                            android:src="#FF00FF" />
 
                         <TextView
-                            android:id="@+id/tvMessageBannerTitle"
+                            android:id="@+id/tvConversationListBannerTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="50"
+                            android:gravity="center"
                             android:text="Messages"
-                            android:textColor="#6DCAEC" />
-                        
+                            android:textColor="#6DCAEC"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/bNewMessage"
+                            android:layout_width="40dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="25"
+                            android:text="New" />
                     </LinearLayout>
-                    
+
                     <ListView
-				        android:id="@android:id/list"
-				        android:layout_width="fill_parent"
-				        android:layout_height="fill_parent" >
-				    </ListView>
-                    
+                        android:id="@android:id/list"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="70" >
+                    </ListView>
                 </LinearLayout>
 
                 <LinearLayout
@@ -67,13 +89,13 @@
                 </LinearLayout>
             </FrameLayout>
 
-        	<TabWidget
-            	android:id="@android:id/tabs"
-            	android:layout_width="fill_parent"
-            	android:layout_height="wrap_content"
-            	android:layout_weight="0"
-            	android:layout_marginBottom="-4dp"/>
-
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-4dp"
+                android:layout_weight="0" />
         </LinearLayout>
     </TabHost>
+
 </LinearLayout>

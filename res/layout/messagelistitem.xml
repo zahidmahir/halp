@@ -9,17 +9,18 @@
 
     <TextView
         android:id="@+id/tvMessageTime"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="9:30pm"
         android:textColor="#6DCAEC" />
     
     <TextView
         android:id="@+id/tvMessageBody"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="9:30pm"
+        android:text="My name is Wahir. What's up here?"
+        android:inputType="textMultiLine"
         android:textColor="#6DCAEC" />
 
 </LinearLayout>
