@@ -60,54 +60,7 @@ public class MainActivity extends Activity {
         
         listener = new ListenerThread();
         listener.start();
-        
-        /*
-        wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        
-     // Setup Connectivity
-        connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        wifiInfo = connectivity.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        mobileInfo = connectivity.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-		wifiManager.setWifiEnabled(true);
-
-        wifiManager.startScan();
-
-        
-        List<ScanResult> results = wifiManager.getScanResults();
-        for(ScanResult result: results){
-
-        	if (result.SSID.equals("halp")){
-        		fuckLogCat.setText("\n" + result.BSSID);
-        		fuckLogCat.setText("\n" + fuckLogCat.getText() + "\n" + result);
-
-        		WifiConfiguration wc = new WifiConfiguration();
-        		// This is must be quoted according to the documentation 
-        		// http://developer.android.com/reference/android/net/wifi/WifiConfiguration.html#SSID
-        		wc.SSID = "\""+result.SSID+"\"";
-        		//wc.preSharedKey  = "password";
-        		//wc.hiddenSSID = true;
-        		wc.status = WifiConfiguration.Status.CURRENT;
-        		wc.priority = 1;
-        		//wc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
-        		//wc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
-        		wc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
-        		//wc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
-        		//wc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
-        		//wc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
-        		int res = wifiManager.addNetwork(wc);
-        		Log.d("WifiPreference", "add Network returned " + res );
-        		boolean b = wifiManager.enableNetwork(res, false);        
-        		Log.d("WifiPreference", "enableNetwork returned " + b );
-        	}
-        }
-        //fuckLogCat.setText("\n\n" + wifiManager.getScanResults());
-        
-        
-        // print info
-        //Log.d("MainActivity", "\n\n" + wifiInfo.toString());
-        //Log.d("MyActivity","\n\n" + mobileInfo.toString());
-        //Log.d("MyActivity", "\n\n" + wifiManager.getScanResults());*/
-     
+             
         // Create a BroadcastReceiver for ACTION_FOUND
         final BroadcastReceiver mReceiver = new BroadcastReceiver() {
             public void onReceive(Context context, Intent intent) {
@@ -119,10 +72,12 @@ public class MainActivity extends Activity {
                     // Add the name and address to an array adapter to show in a ListView
                     //mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
                     
-                    Log.d(TAG, device.getName());
+                    Log.d(TAG, "I see " + device.getName());
                     
-                    ConnectThread connector = new ConnectThread(device);
-                    connector.start();
+                    if(device.getName().equals("halp")){
+                    	ConnectThread connector = new ConnectThread(device);
+                    	connector.start();                    	
+                    }
                 }
             }
         };
@@ -213,7 +168,7 @@ public class MainActivity extends Activity {
             // because mmSocket is final
             BluetoothSocket tmp = null;
             mmDevice = device;
-     
+            Log.d(TAG, "Im in the Connect thread constructor");
             // Get a BluetoothSocket to connect with the given BluetoothDevice
             try {
                 // MY_UUID is the app's UUID string, also used by the server code
@@ -223,11 +178,12 @@ public class MainActivity extends Activity {
         }
      
         public void run() {
+        	
      
             try {
                 // Connect the device through the socket. This will block
                 // until it succeeds or throws an exception
-                socket.connect();
+            	socket.connect();
             } catch (IOException connectException) {
                 // Unable to connect; close the socket and get out
                 try {
