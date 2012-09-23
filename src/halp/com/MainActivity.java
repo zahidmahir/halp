@@ -118,6 +118,9 @@ public class MainActivity extends Activity {
                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                     // Add the name and address to an array adapter to show in a ListView
                     //mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                    
+                    Log.d(TAG, device.getName());
+                    
                     ConnectThread connector = new ConnectThread(device);
                     connector.start();
                 }
@@ -214,7 +217,7 @@ public class MainActivity extends Activity {
             // Get a BluetoothSocket to connect with the given BluetoothDevice
             try {
                 // MY_UUID is the app's UUID string, also used by the server code
-                tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
+                tmp = device.createInsecureRfcommSocketToServiceRecord(MY_UUID);
             } catch (IOException e) { }
             socket = tmp;
         }
